@@ -17,4 +17,7 @@ public class Produto {
     public void setPrecoReferencia(double precoReferencia) {
         this.precoReferencia = precoReferencia;
     }
+    public double getPrecoReferencia() {
+        return this.precoReferencia;
+    }
 }

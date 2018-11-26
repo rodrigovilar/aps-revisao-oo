@@ -20,4 +20,8 @@ public class LinhaVenda {
     public Produto getProduto() {
         return produto;
     }
+    
+    public double getSubTotal() {
+        return getQuantidade() * getProduto().getPrecoReferencia();
+    }
 }

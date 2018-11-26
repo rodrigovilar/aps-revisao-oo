@@ -1,13 +1,15 @@
+import java.util.ArrayList;
 
 public class Venda {
     
+    private static double contador = 0.0;
+    
     private int id;
     private String data;
-    private LinhaVenda[] linhas = new LinhaVenda[10];
-    private int ultimaPosicaoLinhas = 0;
+    private ArrayList<LinhaVenda> linhas = new ArrayList<>();
     
     public void addLinha(LinhaVenda linha) {
-        linhas[ultimaPosicaoLinhas++] = linha;
+        linhas.add(linha);
     }
     
     public void setId(int id){
@@ -27,7 +29,20 @@ public class Venda {
     }
     
     public double getValorTotal() {
-        return 0.0;
+        double resultado = 0.0;
+        
+        for (LinhaVenda linha : this.linhas) {
+            resultado += linha.getSubTotal();
+        }
+        
+        return resultado;
     }
     
+    public void finalizar() {
+        contador += getValorTotal();
+    }
+    
+    public static double getFaturamentoGeral() {
+        return contador;
+    }
 }
