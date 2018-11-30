@@ -2,6 +2,9 @@ public class LinhaVenda {
     private int sequencia;
     private double quantidade;
     private Produto produto;
+    private IPI ipi = new IPI();
+    private ICMS icms = new ICMS();
+    
     public void setSequencia(int sequencia) {
         this.sequencia = sequencia;
     }
@@ -21,7 +24,28 @@ public class LinhaVenda {
         return produto;
     }
     
-    public double getSubTotal() {
+    private double getValorOriginal() {
         return getQuantidade() * getProduto().getPrecoReferencia();
     }
+    
+    public double getSubTotal() {
+        return getValorOriginal() + getIcms() + getIpi();
+    }
+    
+    public double getIpi() {
+        return ipi.calcular(getValorOriginal(), getProduto());
+    }
+    
+    public double getIcms() {
+        return icms.calcular(getValorOriginal(), getProduto()); 
+    }
 }
+
+
+
+
+
+
+
+
+

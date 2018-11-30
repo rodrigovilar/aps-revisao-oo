@@ -41,8 +41,7 @@ public class VendaTest
     }
 
     @Test
-    public void venderUmSmartPhone()
-    {
+    public void venderUmSmartPhone() {
         Produto produto1 = new Produto();
         produto1.setCodigoBarras(123124);
         produto1.setNome("iPhone XS");
@@ -55,7 +54,44 @@ public class VendaTest
         linhaVen1.setQuantidade(1);
         linhaVen1.setSequencia(1);
         venda1.addLinha(linhaVen1);
+        assertEquals(11700, venda1.getValorTotal(), 0.1);
+    }
+    
+    @Test
+    public void venderUmSmartPhoneIsentoICMS() {
+        Produto produto1 = new Produto();
+        produto1.setCodigoBarras(123124);
+        produto1.setNome("iPhone XS");
+        produto1.setPrecoReferencia(10000);
+        produto1.setIsentoICMS(true);
+        Venda venda1 = new Venda();
+        venda1.setId(1);
+        venda1.setData("26/11/2018");
+        LinhaVenda linhaVen1 = new LinhaVenda();
+        linhaVen1.setProduto(produto1);
+        linhaVen1.setQuantidade(1);
+        linhaVen1.setSequencia(1);
+        venda1.addLinha(linhaVen1);
         assertEquals(10000, venda1.getValorTotal(), 0.1);
+    }
+    
+    @Test
+    public void venderUmSmartPhoneIsentoICMSComIPI() {
+        Produto produto1 = new Produto();
+        produto1.setCodigoBarras(123124);
+        produto1.setNome("iPhone XS");
+        produto1.setPrecoReferencia(10000);
+        produto1.setIsentoICMS(true);
+        produto1.setTaxaIPI(0.10);
+        Venda venda1 = new Venda();
+        venda1.setId(1);
+        venda1.setData("26/11/2018");
+        LinhaVenda linhaVen1 = new LinhaVenda();
+        linhaVen1.setProduto(produto1);
+        linhaVen1.setQuantidade(1);
+        linhaVen1.setSequencia(1);
+        venda1.addLinha(linhaVen1);
+        assertEquals(11000, venda1.getValorTotal(), 0.1);
     }
 
     @Test
@@ -76,7 +112,7 @@ public class VendaTest
         venda2.addLinha(linhaVen2);
         venda1.finalizar();
         venda2.finalizar();
-        assertEquals(110, Venda.getFaturamentoGeral(), 0.1);
+        assertEquals(128.7, Venda.getFaturamentoGeral(), 0.1);
     }
 }
 
