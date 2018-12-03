@@ -1,43 +1,16 @@
-
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * The test class VendaTest.
- *
- * @author  (your name)
- * @version (a version number or a date)
- */
-public class VendaTest
-{
-    /**
-     * Default constructor for test class VendaTest
-     */
-    public VendaTest()
-    {
-    }
+public class VendaTest {
 
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
+    private LogicaVenda logicaVenda;
+    
+    public VendaTest() {
+        logicaVenda = new LogicaVenda();
+        logicaVenda.addImposto(new IPI());        
+        logicaVenda.addImposto(new ICMS());
     }
 
     @Test
@@ -54,7 +27,7 @@ public class VendaTest
         linhaVen1.setQuantidade(1);
         linhaVen1.setSequencia(1);
         venda1.addLinha(linhaVen1);
-        assertEquals(11700, venda1.getValorTotal(), 0.1);
+        assertEquals(11700, logicaVenda.getValorTotal(venda1), 0.1);
     }
     
     @Test
@@ -72,7 +45,7 @@ public class VendaTest
         linhaVen1.setQuantidade(1);
         linhaVen1.setSequencia(1);
         venda1.addLinha(linhaVen1);
-        assertEquals(10000, venda1.getValorTotal(), 0.1);
+        assertEquals(10000, logicaVenda.getValorTotal(venda1), 0.1);
     }
     
     @Test
@@ -91,7 +64,7 @@ public class VendaTest
         linhaVen1.setQuantidade(1);
         linhaVen1.setSequencia(1);
         venda1.addLinha(linhaVen1);
-        assertEquals(11000, venda1.getValorTotal(), 0.1);
+        assertEquals(11000, logicaVenda.getValorTotal(venda1), 0.1);
     }
 
     @Test
@@ -110,8 +83,8 @@ public class VendaTest
         linhaVen2.setProduto(produto1);
         linhaVen2.setQuantidade(10);
         venda2.addLinha(linhaVen2);
-        venda1.finalizar();
-        venda2.finalizar();
+        logicaVenda.finalizar(venda1);
+        logicaVenda.finalizar(venda2);
         assertEquals(128.7, Venda.getFaturamentoGeral(), 0.1);
     }
 }

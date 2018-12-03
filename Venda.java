@@ -8,8 +8,20 @@ public class Venda {
     private String data;
     private ArrayList<LinhaVenda> linhas = new ArrayList<>();
     
+    public static void setContador(double contador) {
+        Venda.contador = contador;
+    }
+    
+    public static double getContador() {
+        return contador;
+    }
+        
     public void addLinha(LinhaVenda linha) {
         linhas.add(linha);
+    }
+    
+    public ArrayList<LinhaVenda> getLinhas() {
+        return linhas;
     }
     
     public void setId(int id){
@@ -26,20 +38,6 @@ public class Venda {
     
     public String getData() {
         return data;
-    }
-    
-    public double getValorTotal() {
-        double resultado = 0.0;
-        
-        for (LinhaVenda linha : this.linhas) {
-            resultado += linha.getSubTotal();
-        }
-        
-        return resultado;
-    }
-    
-    public void finalizar() {
-        contador += getValorTotal();
     }
     
     public static double getFaturamentoGeral() {
